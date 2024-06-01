@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/Akaifox16/gonf/commands"
+	"github.com/Akaifox16/gonf/cmd"
 	"github.com/Akaifox16/gonf/config"
 	"github.com/spf13/cobra"
 )
@@ -36,29 +36,9 @@ func main() {
 		fmt.Println("Error loading config:", err)
 		return
 	}
-	commands.SetConfig(cfg)
 
-	rootCmd.AddCommand(&cobra.Command{
-		Use:   "new-branch [workflow] [branch name]",
-		Short: "Create a new branch",
-		Args:  cobra.MinimumNArgs(1),
-		Run: func(cmd *cobra.Command, args []string) {
-			workflowName := args[0]
-			branchName := ""
-			if len(args) > 1 {
-				branchName = args[1]
-			}
-
-			workflow, found := cfg.Workflows[workflowName]
-
-			if !found {
-				fmt.Println("Workflow not found:", workflowName)
-				return
-			}
-
-			commands.CreateBranch(workflow, branchName)
-		},
-	})
+	rootCmd.AddCommand(cmd.NewBranchCommand(cfg))
+	rootCmd.AddCommand(cmd.NewSyncBranchCommand(cfg))
 
 	rootCmd.Execute()
 }
