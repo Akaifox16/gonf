@@ -7,11 +7,14 @@ import (
 )
 
 type Workflow struct {
-	SourceBranch      string `toml:"source_branch"`
-	DestinationBranch string `toml:"destination_branch"`
-	DefaultBranch     string `toml:"default_branch,omitempty"`
-	PreCommitHooks    string `toml:"pre_commit_hooks,omitempty"`
-	PostCommitHooks   string `toml:"post_commit_hooks,omitempty"`
+	SourceBranch        string `toml:"source_branch"`
+	SourceRemote        string `toml:"source_remote,omitempty"`
+	DestinationBranch   string `toml:"destination_branch"`
+	DestinationRemote   string `toml:"destination_remote,omitempty"`
+	DefaultBranch       string `toml:"default_branch,omitempty"`
+	DefaultBranchRemote string `toml:"default_branch_remote,omitempty"`
+	PreCommitHooks      string `toml:"pre_commit_hooks,omitempty"`
+	PostCommitHooks     string `toml:"post_commit_hooks,omitempty"`
 }
 
 type Config struct {

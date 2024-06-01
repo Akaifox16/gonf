@@ -36,9 +36,11 @@ func main() {
 		fmt.Println("Error loading config:", err)
 		return
 	}
+	cmd.SetConfig(cfg)
 
-	rootCmd.AddCommand(cmd.NewBranchCommand(cfg))
-	rootCmd.AddCommand(cmd.NewSyncBranchCommand(cfg))
+	rootCmd.AddCommand(cmd.NewBranchCommand())
+	rootCmd.AddCommand(cmd.NewSyncBranchCommand())
+	rootCmd.AddCommand(cmd.NewCompleteBranchCommand())
 
 	rootCmd.Execute()
 }

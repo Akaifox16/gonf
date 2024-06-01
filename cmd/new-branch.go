@@ -4,12 +4,11 @@ import (
 	"fmt"
 	"os/exec"
 
-	"github.com/Akaifox16/gonf/branchinput"
-	"github.com/Akaifox16/gonf/config"
+	"github.com/Akaifox16/gonf/models/branchinput"
 	"github.com/spf13/cobra"
 )
 
-func NewBranchCommand(cfg *config.Config) *cobra.Command {
+func NewBranchCommand() *cobra.Command {
 	return &cobra.Command{
 		Use:   "new [workflow] [branch name]",
 		Short: "Create a new branch",

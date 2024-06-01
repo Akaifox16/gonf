@@ -11,12 +11,12 @@ import (
 
 type spinnerModel struct {
 	spinner spinner.Model
-	task    string
+	task    *exec.Cmd
 	err     error
 	done    bool
 }
 
-func NewSpinnerModel(task string) spinnerModel {
+func NewSpinnerModel(task *exec.Cmd) spinnerModel {
 
 	s := spinner.New()
 	s.Spinner = spinner.Line
@@ -64,23 +64,17 @@ type taskDoneMsg struct {
 	err error
 }
 
-func runTask(task string) tea.Cmd {
+func runTask(task *exec.Cmd) tea.Cmd {
 	return func() tea.Msg {
-		var err error
-		switch task {
-		case "pull":
-			cmd := exec.Command("git", "pull")
-			err = cmd.Run()
-		case "push":
-			cmd := exec.Command("git", "push")
-			err = cmd.Run()
-		}
+		err := task.Run()
 		time.Sleep(2 * time.Second)
 		return taskDoneMsg{err: err}
 	}
 }
 
-func RunSpinner(task string) error {
+func RunSpinner(task *exec.Cmd) error {
 	p := tea.NewProgram(NewSpinnerModel(task))
-	return p.Start()
+	_, err := p.Run()
+
+	return err
 }
