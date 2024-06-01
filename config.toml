@@ -1,0 +1,16 @@
+[default]
+sourceBranch = "main"
+destinationBranch = "cicd-sp-*"
+
+[hotfix]
+sourceBranch = "hotfix/*"
+destinationBranch = "main"
+
+[feature]
+sourceBranch = "feature/*"
+destinationBranch = "cicd-sp-*"
+
+[rollout]
+sourceBranch = "cicd-sp-*"
+destinationBranch = "main"
+postCommitHook = "echo Rollout"
